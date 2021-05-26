@@ -63,3 +63,9 @@
       ```sh
       docker exec -it knex-objection-node-app ash
       ```
+
+    - as root user
+
+      ```sh
+      docker exec -it --user root knex-objection-node-app ash
+      ```

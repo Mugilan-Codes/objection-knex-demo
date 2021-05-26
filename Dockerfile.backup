@@ -1,0 +1,43 @@
+FROM node:15-alpine as base
+
+ARG USER=mugil
+ENV HOME /home/${USER}
+# WORKDIR /app
+WORKDIR ${HOME}/app
+COPY package.json .
+
+ENV PORT 3000
+EXPOSE ${PORT}
+
+# Installing packages for alpine
+# RUN apk --no-cache add curl git
+RUN apk --no-cache add curl git docker docker-compose openrc && rc-update add docker boot
+
+# make a stage for build folder (if babel is used)
+
+# This is alternative for multi-stage builds
+# --------------------------------
+# ARG NODE_ENV
+# RUN if [ "$NODE_ENV" = "development" ]; \
+#   then npm install; \
+#   else npm install --only=production; \
+#   fi
+# --------------------------------
+
+# REF: https://stackoverflow.com/questions/49955097/how-do-i-add-a-user-when-im-using-alpine-as-a-base-image
+# RUN useradd --create-home --shell /bin/sh mugil # use this if no alpine
+FROM base as prod
+ENV NODE_ENV=production
+COPY package-lock.json .
+RUN npm ci --only=production
+COPY . .
+# RUN adduser -h ${HOME} -s /bin/ash ${USER}
+RUN adduser -S ${USER} && addgroup ${USER} docker
+USER ${USER}
+CMD [ "npm", "start" ]
+
+FROM base as dev
+ENV NODE_ENV=development
+RUN npm install
+COPY . .
+CMD [ "npm", "run", "dev" ]
