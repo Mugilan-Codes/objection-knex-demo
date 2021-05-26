@@ -1,0 +1,22 @@
+{
+  "name": "objection-knex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "Mugilan <mugilancodes@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.21.19",
+    "mysql2": "^2.2.5",
+    "objection": "^2.2.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
