@@ -4,10 +4,8 @@ COPY package.json .
 ENV PORT 3000
 EXPOSE ${PORT}
 
-# Installing packages
-FROM base as deps
-RUN apk --no-cache add curl
-RUN apk --no-cache add git
+# Installing packages for alpine
+RUN apk --no-cache add curl git
 
 # make a stage for build folder (if babel is used)
 
