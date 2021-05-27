@@ -1,11 +1,13 @@
 FROM node:15-alpine as base
+
 WORKDIR /app
-COPY package.json .
+COPY [ "package.json", "package-lock.json", "./" ]
+
 ENV PORT 3000
 EXPOSE ${PORT}
 
 # Installing packages for alpine
-RUN apk --no-cache add curl git
+# RUN apk --no-cache add curl git
 
 # make a stage for build folder (if babel is used)
 
@@ -20,7 +22,6 @@ RUN apk --no-cache add curl git
 
 FROM base as prod
 ENV NODE_ENV=production
-COPY package-lock.json .
 RUN npm ci --only=production
 COPY . .
 CMD [ "npm", "start" ]
