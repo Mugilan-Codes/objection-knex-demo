@@ -64,6 +64,14 @@
 
     **Note**: $(pwd) is specific to unix system (check for other OS). :ro is added to give docker read-only permission over the local folder.
 
+  - Run in Detached Mode with Port-Forwarding and Bind local folder to docker and node_modules as Anonymous Volume(to prevent overiding of node_modules and deleting it)
+
+    ```sh
+    docker run -v $(pwd):/app:ro -v /app/node_modules -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
+    ```
+
+    **Note**: Don't know if the anonymous volume is neccessary when using multi-stage build Dockerfile
+
   - Access File System
 
     - use `sh` or `ash` since `bash` is unavailable in alpine images
