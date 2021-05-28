@@ -56,6 +56,12 @@
     docker rm knex-objection-node-app -f
     ```
 
+  - Forcefully Remove a container with volume
+
+    ```sh
+    docker rm knex-objection-node-app -fv
+    ```
+
   - Run in Detached Mode with Port-Forwarding and Bind local folder to docker
 
     ```sh
@@ -72,6 +78,14 @@
 
     **Note**: Don't know if the anonymous volume is neccessary when using multi-stage build Dockerfile
 
+  - Run in Detached Mode with Port-Forwarding and Bind local folder to docker and node_modules as Anonymous Volume(to prevent overiding of node_modules and deleting it). Also set environment variables
+
+    ```sh
+    docker run -v $(pwd):/app:ro -v /app/node_modules --env-file ./.env -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
+    ```
+
+    **NOTE**: you can also environment variables one by one instead of using .env file by adding --env(or -e) flag like `-e PORT=3000`
+
   - Access File System
 
     - use `sh` or `ash` since `bash` is unavailable in alpine images
@@ -84,4 +98,10 @@
 
       ```sh
       docker exec -it --user root knex-objection-node-app ash
+      ```
+
+    - check the set environment variables in the docker container
+
+      ```sh
+      printenv
       ```
