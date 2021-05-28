@@ -3,7 +3,7 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hello from Objection-Knex Tut</h1>');
+  res.send('<h1>Hello from Objection-Knex Tutorial</h1>');
   console.log('I am working');
 });
 

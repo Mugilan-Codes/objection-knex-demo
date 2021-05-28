@@ -11,15 +11,6 @@ EXPOSE ${PORT}
 
 # make a stage for build folder (if babel is used)
 
-# This is alternative for multi-stage builds
-# --------------------------------
-# ARG NODE_ENV
-# RUN if [ "$NODE_ENV" = "development" ]; \
-#   then npm install; \
-#   else npm install --only=production; \
-#   fi
-# --------------------------------
-
 FROM base as prod
 ENV NODE_ENV=production
 RUN npm ci --only=production

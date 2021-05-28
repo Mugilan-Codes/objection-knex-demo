@@ -56,6 +56,14 @@
     docker rm knex-objection-node-app -f
     ```
 
+  - Run in Detached Mode with Port-Forwarding and Bind local folder to docker
+
+    ```sh
+    docker run -v $(pwd):/app:ro -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
+    ```
+
+    **Note**: $(pwd) is specific to unix system (check for other OS). :ro is added to give docker read-only permission over the local folder.
+
   - Access File System
 
     - use `sh` or `ash` since `bash` is unavailable in alpine images
