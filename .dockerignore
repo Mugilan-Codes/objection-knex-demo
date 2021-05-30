@@ -8,3 +8,5 @@ Dockerfile*
 .gitignore
 
 docker-compose*
+
+dist

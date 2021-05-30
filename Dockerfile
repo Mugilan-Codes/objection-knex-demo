@@ -1,21 +1,27 @@
-FROM node:15-alpine as base
+ARG NODE_VERSION=15-alpine
 
+FROM node:${NODE_VERSION} as node
+
+FROM node as base
 WORKDIR /app
-COPY [ "package.json", "package-lock.json", "./" ]
-
+COPY [ "package.json", "package-lock.json", "babel.config.json", "./" ]
 ENV PORT 3000
 EXPOSE ${PORT}
 
 # Installing packages for alpine
 # RUN apk --no-cache add curl git
 
-# make a stage for build folder (if babel is used)
+# Babel
+FROM base as build
+RUN npm install
+COPY . .
+RUN npm run build
 
 FROM base as prod
 ENV NODE_ENV=production
 RUN npm ci --only=production
-COPY . .
-CMD [ "npm", "start" ]
+COPY --from=build /app/dist ./dist
+CMD [ "npm", "run", "start:prod" ]
 
 FROM base as dev
 ENV NODE_ENV=development

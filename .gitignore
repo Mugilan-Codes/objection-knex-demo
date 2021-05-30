@@ -128,3 +128,10 @@ tmp/
 temp/
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+# Custom Additions
+
+node_modules
+.env
+dist
+init.sql
