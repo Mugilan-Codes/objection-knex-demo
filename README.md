@@ -13,25 +13,91 @@
 
 ### DOCKER COMMANDS
 
+- Image
+
+  - List images
+
+    ```sh
+    docker image ls
+    ```
+
+  - Remove one or more images
+
+    ```sh
+    docker image rm <image_name>
+    ```
+
+- Container
+
+  - List Running
+
+    ```sh
+    docker ps
+    ```
+
+  - List All
+
+    ```sh
+    docker ps -a
+    ```
+
+  - Remove one or more containers
+
+    ```sh
+    docker image rm <image_name>
+
+    # force
+    docker image rm <image_name> -f
+
+    # volumes
+    docker image rm <image_name> -v
+
+    # force and volume
+    docker image rm <image_name> -fv
+    ```
+
+    **NOTE**:
+      1. `-f` or `--force`: Force the removal of a running container (uses SIGKILL)
+      2. `-v` or `--volumes`: Remove anonymous volumes associated with the container
+
+- Volumes
+
+  - List volumes
+
+    ```sh
+    docker volume ls
+    ```
+
+  - Remove all unused local volumes
+
+    ```sh
+    docker volume prune
+    ```
+
 - Access File System
 
   - use `sh` or `ash` since `bash` is unavailable in alpine images
 
     ```sh
-    docker exec -it knex-objection-node-app ash
+    docker exec -it <container_name> ash
     ```
 
   - as root user
 
     ```sh
-    docker exec -it --user root knex-objection-node-app ash
+    docker exec -it --user root <container_name> ash
     ```
 
-  - check the set environment variables in the docker container
+  - check the set environment variables inside the docker container
 
     ```sh
     printenv
     ```
+
+  **NOTE**:
+    1. Run a command in a running container
+    2. `-i` or `--interactive`: Keep STDIN open even if not attached
+    3. `-t` or `--tty`: Allocate a pseudo-TTY
 
 - Compose
 
@@ -61,5 +127,5 @@
 
   **NOTE**:
     1. can also use `docker compose` instead of `docker-compose`
-    2. -d or --detach: Detached mode: Run containers in the background
-    3. -v or --volumes: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
+    2. `-d` or `--detach`: Detached mode: Run containers in the background
+    3. `-v` or `--volumes`: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
