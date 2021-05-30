@@ -11,100 +11,55 @@
   - [Configure Babel for a Nodejs Application](https://dev.to/adebayoileri/configure-babel-for-nodejs-application-3798)
   - [A Minimal Node.js, Express, & Babel Setup](https://dev.to/neightjones/a-minimal-node-js-express-babel-setup-27j6)
 
-## Install Packages
-
-  ```sh
-  npm install express objection knex mysql2
-  ```
-
 ### DOCKER COMMANDS
 
-- Image
+- Access File System
 
-  - Build using Dockerfile (runs the final stage in multi-stage build)
-
-    ```sh
-    docker build -t knex-objection-node-app-image .
-    ```
-
-  - Delete
+  - use `sh` or `ash` since `bash` is unavailable in alpine images
 
     ```sh
-    docker image rm knex-objection-node-app-image
+    docker exec -it knex-objection-node-app ash
     ```
 
-  - Build as Dev
+  - as root user
 
     ```sh
-    docker build --target dev -t knex-objection-node-app-image .
+    docker exec -it --user root knex-objection-node-app ash
     ```
 
-  - Build as Prod
+  - check the set environment variables in the docker container
 
     ```sh
-    docker build --target prod -t knex-objection-node-app-image .
+    printenv
     ```
 
-- Container
+- Compose
 
-  - Basic Run in Detached Mode with Port-Forwarding
+  - up
 
     ```sh
-    docker run -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
+    docker-compose up -d
+
+    # use this if there is any changes in Dockerfile to Build images before starting containers
+    docker-compose up -d --build
     ```
 
-  - Force stop and delete
+  - down
 
     ```sh
-    docker rm knex-objection-node-app -f
+    docker-compose down
+
+    # Remove containers and it's volumes
+    docker-compose down -v
+
+    # Remove all images used by any service
+    docker-compose down --rmi all
+
+    # Remove only images that don't have a custom tag set by the `image` field
+    docker-compose down --rmi local
     ```
 
-  - Forcefully Remove a container with volume
-
-    ```sh
-    docker rm knex-objection-node-app -fv
-    ```
-
-  - Bind local folder to docker
-
-    ```sh
-    docker run -v $(pwd):/app:ro -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
-    ```
-
-    **Note**: $(pwd) is specific to unix system (check for other OS). :ro is added to give docker read-only permission over the local folder.
-
-  - Add node_modules as Anonymous Volume(to prevent overiding of node_modules and deleting it)
-
-    ```sh
-    docker run -v $(pwd):/app:ro -v /app/node_modules -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
-    ```
-
-    **Note**: for anonymous volume for node_modules to work we must have a node_modules folder initially in the local folder (this can be done in 2 ways, doing it by npm install in local machine or running the container without read-only(:ro) permission to the bind mount)
-
-  - Set environment variables
-
-    ```sh
-    docker run -v $(pwd):/app:ro -v /app/node_modules --env-file ./.env -p 3000:3000 -d --name knex-objection-node-app knex-objection-node-app-image
-    ```
-
-    **NOTE**: you can also environment variables one by one instead of using .env file by adding --env(or -e) flag like `-e PORT=3000`
-
-  - Access File System
-
-    - use `sh` or `ash` since `bash` is unavailable in alpine images
-
-      ```sh
-      docker exec -it knex-objection-node-app ash
-      ```
-
-    - as root user
-
-      ```sh
-      docker exec -it --user root knex-objection-node-app ash
-      ```
-
-    - check the set environment variables in the docker container
-
-      ```sh
-      printenv
-      ```
+  **NOTE**:
+    1. can also use `docker compose` instead of `docker-compose`
+    2. -d or --detach: Detached mode: Run containers in the background
+    3. -v or --volumes: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
