@@ -80,24 +80,21 @@
 
     ```sh
     docker exec -it <container_name> ash
-    ```
 
-  - as root user
-
-    ```sh
+    # as root user
     docker exec -it --user root <container_name> ash
     ```
+
+    **NOTE**:
+      1. Run a command in a running container
+      2. `-i` or `--interactive`: Keep STDIN open even if not attached
+      3. `-t` or `--tty`: Allocate a pseudo-TTY
 
   - check the set environment variables inside the docker container
 
     ```sh
     printenv
     ```
-
-  **NOTE**:
-    1. Run a command in a running container
-    2. `-i` or `--interactive`: Keep STDIN open even if not attached
-    3. `-t` or `--tty`: Allocate a pseudo-TTY
 
 - Compose
 
@@ -109,6 +106,8 @@
     # use this if there is any changes in Dockerfile to Build images before starting containers
     docker-compose up -d --build
     ```
+
+    **NOTE**: `-d` or `--detach`: Detached mode: Run containers in the background
 
   - down
 
@@ -125,7 +124,6 @@
     docker-compose down --rmi local
     ```
 
-  **NOTE**:
-    1. can also use `docker compose` instead of `docker-compose`
-    2. `-d` or `--detach`: Detached mode: Run containers in the background
-    3. `-v` or `--volumes`: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
+    **NOTE**: `-v` or `--volumes`: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
+
+  **NOTE**: can also use `docker compose` instead of `docker-compose`
