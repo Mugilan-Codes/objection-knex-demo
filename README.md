@@ -10,6 +10,9 @@
 - Babel Setup
   - [Configure Babel for a Nodejs Application](https://dev.to/adebayoileri/configure-babel-for-nodejs-application-3798)
   - [A Minimal Node.js, Express, & Babel Setup](https://dev.to/neightjones/a-minimal-node-js-express-babel-setup-27j6)
+- Docker Compose
+  - [Use Compose in production](https://docs.docker.com/compose/production/)
+  - [Share Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
 
 ### DOCKER COMMANDS
 
