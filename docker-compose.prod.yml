@@ -4,5 +4,3 @@ services:
   node-app:
     build:
       target: prod
-    # environment:
-    #   - NODE_ENV=production
