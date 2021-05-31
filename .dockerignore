@@ -1,8 +1,7 @@
 node_modules
 
-Dockerfile
-.dockerignore
 Dockerfile*
+.dockerignore
 
 .git
 .gitignore

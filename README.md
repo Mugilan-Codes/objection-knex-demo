@@ -98,32 +98,54 @@
 
 - Compose
 
-  - up
+  - DEVELOPMENT
 
-    ```sh
-    docker-compose up -d
+    - up
 
-    # use this if there is any changes in Dockerfile to Build images before starting containers
-    docker-compose up -d --build
-    ```
+      ```sh
+      docker-compose up -d
 
-    **NOTE**: `-d` or `--detach`: Detached mode: Run containers in the background
+      # use this if there is any changes in Dockerfile to Build images before starting containers
+      docker-compose up -d --build
+      ```
 
-  - down
+      **NOTE**: `-d` or `--detach`: Detached mode: Run containers in the background
 
-    ```sh
-    docker-compose down
+    - down
 
-    # Remove containers and it's volumes
-    docker-compose down -v
+      ```sh
+      docker-compose down
 
-    # Remove all images used by any service
-    docker-compose down --rmi all
+      # Remove containers and it's volumes
+      docker-compose down -v
 
-    # Remove only images that don't have a custom tag set by the `image` field
-    docker-compose down --rmi local
-    ```
+      # Remove all images used by any service
+      docker-compose down --rmi all
 
-    **NOTE**: `-v` or `--volumes`: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
+      # Remove only images that don't have a custom tag set by the `image` field
+      docker-compose down --rmi local
+      ```
+
+      **NOTE**: `-v` or `--volumes`: Remove named volumes declared in the `volumes` section of the Compose file and anonymous volumes attached to containers
+
+  - PRODUCTION
+
+    - up
+
+      ```sh
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+      # rebuild images
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+      ```
+
+    - down
+
+      ```sh
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v
+      
+      # don't remove volumes
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+      ```
 
   **NOTE**: can also use `docker compose` instead of `docker-compose`

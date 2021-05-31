@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ARG NODE_VERSION=15-alpine
 
 FROM node:${NODE_VERSION} as node
@@ -7,9 +8,6 @@ WORKDIR /app
 COPY [ "package.json", "package-lock.json", "babel.config.json", "./" ]
 ENV PORT 3000
 EXPOSE ${PORT}
-
-# Installing packages for alpine
-# RUN apk --no-cache add curl git
 
 # Babel
 FROM base as build
