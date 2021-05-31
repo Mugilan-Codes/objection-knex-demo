@@ -1,6 +1,13 @@
 # Objection ORM using Knex on MySql
 
-## Source
+## Practice setup for objection knex with docker
+
+### TODO
+
+- Remove babel and use `.mjs` file extension instead of `.js`
+- Complete Setting up knex and Objection ORM without any errors
+
+### Source
 
 - [Objection.js](https://vincit.github.io/objection.js/) ORM
 - [Knex.js](http://knexjs.org/) Query Builder
@@ -13,6 +20,27 @@
 - Docker Compose
   - [Use Compose in production](https://docs.docker.com/compose/production/)
   - [Share Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
+- [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube)
+
+### Knex Setup
+
+- Init
+
+  ```sh
+  knex init --cwd ./src/db
+  ```
+
+- Migrations
+
+  ```sh
+  knex migrate:make --cwd ./src/db <migrations_name>
+  ```
+
+- Seeds
+
+  ```sh
+  knex seed:make --cwd ./src/db <seed_name>
+  ```
 
 ### DOCKER COMMANDS
 
