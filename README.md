@@ -119,7 +119,7 @@
       ```sh
       docker-compose down
 
-      # Remove containers and it's volumes
+      # Remove containers and it's volumes (don't use it if you want db to persist)
       docker-compose down -v
 
       # Remove all images used by any service
@@ -152,3 +152,30 @@
       ```
 
   **NOTE**: can also use `docker compose` instead of `docker-compose`
+
+- Database
+
+  - Open MySQL (recommended)
+
+    ```sh
+    docker exec -it <db_container_name> bash
+
+    mysql -u <user_name> -p
+    # enter your password
+
+    use <db_name>
+    ```
+
+  - directly login into mysql
+
+    ```sh
+    # open mysql
+    docker exec -it <db_container_name> mysql -u <user_name> --password=<password>
+
+    # directly open the database
+    docker exec -it <db_container_name> mysql -u <user_name> --password=<password> <db_name>
+    ```
+
+- Cleaning
+
+  If you want a fresh start for everything, run `docker system prune -a` and `docker volume prune`. The first command removes any unused containers and the second removes any unused volumes. I recommend doing this fairly often since Docker likes to stash everything away causing the gigabytes to add up.
