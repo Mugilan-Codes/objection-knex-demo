@@ -22,9 +22,10 @@
   - [Share Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
 - [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube) - Refer This
 - [Knex Setup Guide](https://gist.github.com/NigelEarle/80150ff1c50031e59b872baf0e474977) - Refer This
-- knex wait for mysql connection
+- knex wait for connection
   - [pool afterCreate](https://github.com/knex/knex/issues/3447#issuecomment-672881144)
   - [acquireConnectionTimeout](http://knexjs.org/#Installation-acquireConnectionTimeout)
+  - [Setting up Docker with Knex.js and PostgreSQL](https://stackoverflow.com/questions/48751074/setting-up-docker-with-knex-js-and-postgresql)
 
 ### Knex Setup
 
