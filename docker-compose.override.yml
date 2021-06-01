@@ -7,3 +7,14 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+    environment:
+      - DB_USER=mugil
+      - DB_PASSWORD=password
+      - DB_NAME=dev_db
+
+  mysql:
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_DATABASE=dev_db
+      - MYSQL_USER=mugil
+      - MYSQL_PASSWORD=password

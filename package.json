@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./src",
+    "nodemon": "nodemon --exec babel-node ./src",
+    "dev": "npm run nodemon",
     "clean": "rm -rf ./dist",
     "build:babel": "babel ./src --out-dir dist --copy-files --source-maps",
     "build": "npm run clean && npm run build:babel",

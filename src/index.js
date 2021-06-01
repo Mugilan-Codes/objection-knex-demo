@@ -1,6 +1,11 @@
 import express from 'express';
 
+import { PORT } from './config';
+import { setupDb } from './db';
+
 const app = express();
+
+setupDb();
 
 app.use(express.json());
 
@@ -9,8 +14,6 @@ app.get('/', (req, res) => {
   console.log('I am working');
 });
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server started on port ${port} -> http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT} -> http://localhost:${PORT}`);
 });
