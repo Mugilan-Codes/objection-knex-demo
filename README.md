@@ -6,6 +6,7 @@
 
 - Remove babel and use `.mjs` file extension instead of `.js`
 - Complete Setting up knex and Objection ORM without any errors
+- Wait for MySQL container to start up and be running before executing node container
 
 ### Source
 
@@ -20,12 +21,20 @@
 - Docker Compose
   - [Use Compose in production](https://docs.docker.com/compose/production/)
   - [Share Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
-- [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube) - Refer This
-- [Knex Setup Guide](https://gist.github.com/NigelEarle/80150ff1c50031e59b872baf0e474977) - Refer This
+- [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube)
+- [Knex Setup Guide](https://gist.github.com/NigelEarle/80150ff1c50031e59b872baf0e474977)
 - knex wait for connection
   - [pool afterCreate](https://github.com/knex/knex/issues/3447#issuecomment-672881144)
   - [acquireConnectionTimeout](http://knexjs.org/#Installation-acquireConnectionTimeout)
   - [Setting up Docker with Knex.js and PostgreSQL](https://stackoverflow.com/questions/48751074/setting-up-docker-with-knex-js-and-postgresql)
+  - [Docker wait for postgresql to be running](https://stackoverflow.com/a/61202718/12381908)
+  - [Waiting for MySQL to come up before talking to it](https://github.com/docker-library/mysql/issues/547#issuecomment-471093838)
+  - [bonita example](https://github.com/docker-library/docs/blob/9660a0cccb87d8db842f33bc0578d769caaf3ba9/bonita/stack.yml#L28-L44)
+  - [wait-for-it Usage with Docker #57](https://github.com/vishnubob/wait-for-it/issues/57)
+  - [Containerizing a Node.js Application for Development With Docker Compose](https://www.digitalocean.com/community/tutorials/containerizing-a-node-js-application-for-development-with-docker-compose)
+  - [Troubleshooting Knex Connection](https://medium.com/@isachenx/troubleshooting-knex-connection-d331cea007f2)
+- [ECMAScript modules (ESM) Interoperability](http://knexjs.org/#esm-interop)
+- [Deleting data from associated tables using knex.js](https://stackoverflow.com/a/53861921/12381908)
 
 ### Knex Setup
 
@@ -38,14 +47,16 @@
 - Migrations
 
   ```sh
-  knex migrate:make --cwd ./src/db <migrations_name>
+  knex --esm migrate:make --cwd ./src/db <migrations_name>
   ```
 
 - Seeds
 
   ```sh
-  knex seed:make --cwd ./src/db <seed_name>
+  knex --esm seed:make --cwd ./src/db <seed_name>
   ```
+
+- Login into docker and run `migrate` and `seed`
 
 ### DOCKER COMMANDS
 

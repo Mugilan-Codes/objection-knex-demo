@@ -2,6 +2,9 @@ import { knexSnakeCaseMappers } from 'objection';
 
 import { DB_CONNECTION } from '../config';
 
+// REF: https://vincit.github.io/objection.js/recipes/snake-case-to-camel-case-conversion.html
+// knexSnakeCaseMappers - automatically convert camelCase to snake case so table names are in snake case but we can use camelCase fields per default
+
 export const development = {
   client: 'mysql2',
   connection: DB_CONNECTION,
@@ -14,7 +17,6 @@ export const development = {
   ...knexSnakeCaseMappers,
 };
 
-// TODO: Need to setup production
 export const production = {
   client: 'mysql2',
   connection: DB_CONNECTION,

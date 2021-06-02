@@ -9,7 +9,6 @@ COPY [ "package.json", "package-lock.json", "babel.config.json", "./" ]
 ENV PORT 3000
 EXPOSE ${PORT}
 
-# Babel
 FROM base as build
 RUN npm install
 COPY . .
@@ -26,3 +25,4 @@ ENV NODE_ENV=development
 RUN npm install
 COPY . .
 CMD [ "npm", "run", "dev" ]
+# CMD [ "npm", "run", "start:prod" ] # use this when wait for mysql container is set properly
