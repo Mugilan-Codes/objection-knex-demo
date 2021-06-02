@@ -21,7 +21,9 @@
 - Docker Compose
   - [Use Compose in production](https://docs.docker.com/compose/production/)
   - [Share Compose configurations between files and projects](https://docs.docker.com/compose/extends/)
-- [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube)
+- Knex Objection ORM Tutorial
+  - [Node Objection.js tutorial with knex and Postgres | Node SQL ORM](https://youtu.be/zbIl2kuP7tE) (YouTube)
+  - [objection-js-tutorial](https://github.com/productioncoder/objection-js-tutorial)
 - [Knex Setup Guide](https://gist.github.com/NigelEarle/80150ff1c50031e59b872baf0e474977)
 - knex wait for connection
   - [pool afterCreate](https://github.com/knex/knex/issues/3447#issuecomment-672881144)
