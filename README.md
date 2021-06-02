@@ -36,6 +36,22 @@
 - [ECMAScript modules (ESM) Interoperability](http://knexjs.org/#esm-interop)
 - [Deleting data from associated tables using knex.js](https://stackoverflow.com/a/53861921/12381908)
 
+### Pre-Requisite
+
+- Make the `wait-for.sh` script executable
+
+  ```sh
+  chmod +x wait-for.sh
+  ```
+
+- Modify Docker Compose `command` in the `node-app` service
+
+  ```txt
+  # ./wait-for.sh <wait-for-service-name>:<port-of-the-service> -- <commands-to-execute-after>
+
+  command: ./wait-for.sh mysql:3306 -- npm run dev
+  ```
+
 ### Knex Setup
 
 - Init

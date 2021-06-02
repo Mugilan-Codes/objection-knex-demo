@@ -11,6 +11,7 @@ services:
       - DB_USER=mugil
       - DB_PASSWORD=password
       - DB_NAME=dev_db
+    command: ./wait-for.sh mysql:3306 -- npm run start:dev
 
   mysql:
     environment:

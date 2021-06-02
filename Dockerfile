@@ -25,4 +25,4 @@ ENV NODE_ENV=development
 RUN npm install
 COPY . .
 CMD [ "npm", "run", "dev" ]
-# CMD [ "npm", "run", "start:prod" ] # use this when wait for mysql container is set properly
+# CMD [ "npm", "run", "start:dev" ] # use this when wait for mysql container is set properly
