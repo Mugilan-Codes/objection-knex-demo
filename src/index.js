@@ -1,17 +1,26 @@
 import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import compression from 'compression';
 
 import { PORT } from './config';
 import { setupDb } from './db';
 import User from './models/User';
 import { logger } from './utils';
-import { morgan } from './middlewares';
+import { morgan, rateLimiter } from './middlewares';
 
 const app = express();
 
 setupDb();
 
 app.use(express.json());
+
+// Middlewares
 app.use(morgan);
+app.use(helmet());
+app.use(cors());
+app.use(rateLimiter);
+app.use(compression());
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello from Objection-Knex Tutorial</h1>');

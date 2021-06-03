@@ -38,6 +38,8 @@
 - [ECMAScript modules (ESM) Interoperability](http://knexjs.org/#esm-interop)
 - [Deleting data from associated tables using knex.js](https://stackoverflow.com/a/53861921/12381908)
 - [Better logs for ExpressJS using Winston and Morgan with Typescript](https://dev.to/vassalloandrea/better-logs-for-expressjs-using-winston-and-morgan-with-typescript-516n)
+- [Express middleware: A complete guide](https://blog.logrocket.com/express-middleware-a-complete-guide/)
+- [Express Use gzip compression](https://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression)
 
 ### Pre-Requisite
 
