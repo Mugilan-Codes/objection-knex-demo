@@ -37,6 +37,7 @@
   - [Troubleshooting Knex Connection](https://medium.com/@isachenx/troubleshooting-knex-connection-d331cea007f2)
 - [ECMAScript modules (ESM) Interoperability](http://knexjs.org/#esm-interop)
 - [Deleting data from associated tables using knex.js](https://stackoverflow.com/a/53861921/12381908)
+- [Better logs for ExpressJS using Winston and Morgan with Typescript](https://dev.to/vassalloandrea/better-logs-for-expressjs-using-winston-and-morgan-with-typescript-516n)
 
 ### Pre-Requisite
 
