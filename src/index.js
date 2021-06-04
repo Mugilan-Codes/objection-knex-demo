@@ -5,9 +5,9 @@ import compression from 'compression';
 
 import { PORT } from './config';
 import { setupDb } from './db';
-import User from './models/User';
 import { logger } from './utils';
 import { morgan, rateLimiter } from './middlewares';
+import mountRoutes from './routes';
 
 const app = express();
 
@@ -27,18 +27,7 @@ app.get('/', (req, res) => {
   logger.info('I am working');
 });
 
-// This is for practice
-// TODO: Move to routes, controllers, services
-app.get('/user/:id', async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const user = await User.query().findById(id).withGraphFetched('channel');
-    res.json(user);
-  } catch (err) {
-    logger.error(err);
-    res.status(500).json(err);
-  }
-});
+mountRoutes(app);
 
 app.listen(PORT, () => {
   logger.info(`Server started on port ${PORT} -> http://localhost:${PORT}`);
