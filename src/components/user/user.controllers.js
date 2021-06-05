@@ -1,5 +1,5 @@
 import * as userService from './user.services';
-import { logger } from '../utils';
+import { logger } from '../../utils';
 
 export const getAllUsers = async (req, res, next) => {
   try {

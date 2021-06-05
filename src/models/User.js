@@ -1,4 +1,4 @@
-import { BaseModel } from '../../models';
+import BaseModel from './BaseModel';
 
 class User extends BaseModel {
   static get tableName() {

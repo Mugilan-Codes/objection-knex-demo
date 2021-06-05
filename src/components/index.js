@@ -1,3 +1,3 @@
-export { default as user } from './user';
-export { default as channel } from './channel';
-export { default as video } from './video';
+export { user } from './user';
+export { channel } from './channel';
+export { video } from './video';
