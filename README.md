@@ -7,6 +7,7 @@
 - Remove babel and use `.mjs` file extension instead of `.js`
 - Complete Setting up knex and Objection ORM without any errors
 - Wait for MySQL container to start up and be running before executing node container
+- Add classes support ([@babel/plugin-transform-classes](https://babeljs.io/docs/en/babel-plugin-transform-classes))
 
 ### Source
 
