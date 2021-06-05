@@ -1,4 +1,4 @@
-import BaseModel from './BaseModel';
+import { BaseModel } from '../../models';
 
 class Channel extends BaseModel {
   static get tableName() {

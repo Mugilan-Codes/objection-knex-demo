@@ -1,12 +1,4 @@
-import { User } from '../models';
-
-// class UserDAO {
-//   findById(id) {
-//     return User.query().findById(id).withGraphFetched('channel');
-//   }
-// }
-
-// export default UserDAO;
+import User from './user.model';
 
 export const findAll = () => {
   // return User.query().withGraphFetched('channel');

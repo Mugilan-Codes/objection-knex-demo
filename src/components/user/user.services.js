@@ -1,4 +1,4 @@
-import { userDAO } from '../dao';
+import * as userDAO from './user.dao';
 
 export const getAllUsers = () => {
   return userDAO.findAll();
