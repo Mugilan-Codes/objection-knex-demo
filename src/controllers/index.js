@@ -1,3 +1,6 @@
 import * as userController from './user';
 
-export { userController };
+import * as postController from './post';
+import * as adminController from './admin';
+
+export { userController, postController, adminController };
