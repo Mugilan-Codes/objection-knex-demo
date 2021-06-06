@@ -1,6 +1,10 @@
 version: '3'
 
 services:
+  nginx:
+    ports:
+      - '3000:80'
+
   node-app:
     build:
       target: dev
@@ -12,7 +16,7 @@ services:
       - DB_PASSWORD=password
       - DB_NAME=dev_db
       - SESSION_SECRET=secret
-    command: ./wait-for.sh mysql:3306 -- npm run start:dev
+    command: ./wait-for.sh mysql:3306 -- npm run dev
 
   mysql:
     environment:

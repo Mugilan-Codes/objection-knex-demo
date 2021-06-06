@@ -13,6 +13,9 @@ const app = express();
 
 setupDb();
 
+// REF: Express behind proxies - https://expressjs.com/en/guide/behind-proxies.html
+app.set('trust proxy');
+
 // use session or jwt
 // REF: retry session connection - https://github.com/expressjs/session/issues/99#issuecomment-63853989
 app.use(session);
@@ -26,7 +29,7 @@ app.use(cors());
 app.use(rateLimiter);
 app.use(compression());
 
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
   res.send('<h1>Hello from Objection-Knex Tutorial</h1>');
   logger.info('I am working');
 });

@@ -80,7 +80,7 @@
   knex --esm seed:make --cwd ./src/db <seed_name>
   ```
 
-- Login into docker and run `migrate` and `seed`
+- **IMPORTANT**: Login into docker and run `migrate` and `seed`
 
 ### DOCKER COMMANDS
 
@@ -181,6 +181,9 @@
 
       # re-build image without downing the container and re creating anonymous volumes
       docker-compose up -d --build -V
+
+      # scale the number of instances
+      docker-compose up -d --scale node-app=2
       ```
 
       **NOTE**: `-d` or `--detach`: Detached mode: Run containers in the background
