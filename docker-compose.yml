@@ -17,8 +17,6 @@ services:
     restart: always
     volumes:
       - mysql-db:/var/lib/mysql
-    # ports:
-    #   - '3306:3306' # use this if you want to access db using GUI Tools (Beekeeper Studio, DBeaver Community, MySQL Workbench, etc...)
 
   redis:
     image: redis
