@@ -7,6 +7,3 @@ export const DB_CONNECTION = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME || 'test_db',
 };
-
-// TODO:  Remove this log
-console.log({ env: { NODE_ENV, PORT, DB_CONNECTION } });
