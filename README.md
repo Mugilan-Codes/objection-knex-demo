@@ -177,6 +177,9 @@
 
       # use this if there is any changes in Dockerfile to Build images before starting containers
       docker-compose up -d --build
+
+      # re-build image without downing the container and re creating anonymous volumes
+      docker-compose up -d --build -V
       ```
 
       **NOTE**: `-d` or `--detach`: Detached mode: Run containers in the background
@@ -222,26 +225,48 @@
 
 - Database
 
-  - Open MySQL (recommended)
+  - MySQL
+  
+    - Open MySQL (recommended)
 
-    ```sh
-    docker exec -it <db_container_name> bash
+      ```sh
+      docker exec -it <db_container_name> bash
 
-    mysql -u <user_name> -p
-    # enter your password
+      mysql -u <user_name> -p
+      # enter your password
 
-    use <db_name>
-    ```
+      use <db_name>
+      ```
 
-  - directly login into mysql
+    - directly login into mysql
 
-    ```sh
-    # open mysql
-    docker exec -it <db_container_name> mysql -u <user_name> --password=<password>
+      ```sh
+      # open mysql
+      docker exec -it <db_container_name> mysql -u <user_name> --password=<password>
 
-    # directly open the database
-    docker exec -it <db_container_name> mysql -u <user_name> --password=<password> <db_name>
-    ```
+      # directly open the database
+      docker exec -it <db_container_name> mysql -u <user_name> --password=<password> <db_name>
+      ```
+
+  - redis
+
+    - open redis
+
+      ```sh
+      docker exec -it <redis_container_name> redis-cli
+      ```
+
+    - View Session keys inside redis-cli
+
+      ```txt
+      KEYS *
+      ```
+
+    - Get Session Details by using the session id got from `KEYS *`
+
+      ```txt
+      GET <session_key>
+      ```
 
 - Cleaning
 

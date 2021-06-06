@@ -15,7 +15,7 @@ const redisSession = session({
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    maxAge: 60 * 60 * 1000,
+    maxAge: 30 * 1000,
   },
 });
 

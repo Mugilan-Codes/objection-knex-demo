@@ -14,6 +14,7 @@ const app = express();
 setupDb();
 
 // use session or jwt
+// REF: retry session connection - https://github.com/expressjs/session/issues/99#issuecomment-63853989
 app.use(session);
 
 app.use(express.json());
