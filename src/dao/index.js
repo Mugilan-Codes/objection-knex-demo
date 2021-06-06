@@ -5,4 +5,7 @@
 
 import * as userDAO from './user';
 
-export { userDAO };
+import * as postDAO from './post';
+import * as adminDAO from './admin';
+
+export { userDAO, postDAO, adminDAO };
