@@ -8,6 +8,8 @@ export const signUp = async (req, res, next) => {
 
     logger.debug({ data: { admin: newAdmin } });
 
+    req.session.admin = newAdmin;
+
     res.status(201).json({ status: 'success', data: { user: newAdmin } });
   } catch (err) {
     logger.error(err);
@@ -23,6 +25,8 @@ export const login = async (req, res, next) => {
     if (admin.err_msg) {
       throw Error(admin.err_msg);
     }
+
+    req.session.admin = admin;
 
     res.status(200).json({ status: 'success' });
   } catch (err) {
