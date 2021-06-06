@@ -7,3 +7,10 @@ export const DB_CONNECTION = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME || 'test_db',
 };
+
+export const REDIS_CONNECTION = {
+  host: process.env.REDIS_URL || 'redis', // IP Address
+  port: process.env.REDIS_PORT || 6379,
+};
+
+export const SESSION_SECRET = process.env.SESSION_SECRET;

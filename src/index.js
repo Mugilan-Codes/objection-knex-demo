@@ -6,12 +6,15 @@ import compression from 'compression';
 import { PORT } from './config';
 import { setupDb } from './db';
 import { logger } from './utils';
-import { morgan, rateLimiter } from './middlewares';
+import { morgan, rateLimiter, session } from './middlewares';
 import mountRoutes from './routes';
 
 const app = express();
 
 setupDb();
+
+// use session or jwt
+app.use(session);
 
 app.use(express.json());
 
