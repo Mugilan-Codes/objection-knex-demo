@@ -8,3 +8,16 @@ services:
   node-app:
     build:
       target: prod
+    environment:
+      - DB_USER=mugil
+      - DB_PASSWORD=password
+      - DB_NAME=dev_db
+      - SESSION_SECRET=secret
+    command: ./wait-for.sh mysql:3306 -- npm run start:prod
+
+  mysql:
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_DATABASE=dev_db
+      - MYSQL_USER=mugil
+      - MYSQL_PASSWORD=password

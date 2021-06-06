@@ -16,10 +16,6 @@ setupDb();
 // REF: Express behind proxies - https://expressjs.com/en/guide/behind-proxies.html
 app.set('trust proxy');
 
-// use session or jwt
-// REF: retry session connection - https://github.com/expressjs/session/issues/99#issuecomment-63853989
-app.use(session);
-
 app.use(express.json());
 
 // Middlewares
@@ -28,6 +24,9 @@ app.use(helmet());
 app.use(cors());
 app.use(rateLimiter);
 app.use(compression());
+// use session or jwt
+// REF: retry session connection - https://github.com/expressjs/session/issues/99#issuecomment-63853989
+app.use(session);
 
 app.get('/api/v1', (req, res) => {
   res.send('<h1>Hello from Objection-Knex Tutorial</h1>');
@@ -35,6 +34,12 @@ app.get('/api/v1', (req, res) => {
 });
 
 mountRoutes(app);
+
+// TODO: centralized error handler
+app.use((req, res, next) => {
+  res.status(404).json({ status: 'fail', message: 'Not Found' });
+  next();
+});
 
 app.listen(PORT, () => {
   logger.info(`Server started on port ${PORT} -> http://localhost:${PORT}`);

@@ -5,7 +5,8 @@ FROM node:${NODE_VERSION} as node
 
 FROM node as base
 WORKDIR /app
-COPY [ "package.json", "package-lock.json", "babel.config.json", "./" ]
+COPY [ "package.json", "package-lock.json", "babel.config.json", "wait-for.sh", "./" ]
+RUN chmod +x wait-for.sh
 ENV PORT 3000
 EXPOSE ${PORT}
 
@@ -17,6 +18,7 @@ RUN npm run build
 FROM base as prod
 ENV NODE_ENV=production
 RUN npm ci --only=production
+COPY nginx ./nginx
 COPY --from=build /app/dist ./dist
 CMD [ "npm", "run", "start:prod" ]
 
