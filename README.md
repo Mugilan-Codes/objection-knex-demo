@@ -44,6 +44,8 @@
 - [Better logs for ExpressJS using Winston and Morgan with Typescript](https://dev.to/vassalloandrea/better-logs-for-expressjs-using-winston-and-morgan-with-typescript-516n)
 - [Express middleware: A complete guide](https://blog.logrocket.com/express-middleware-a-complete-guide/)
 - [Express Use gzip compression](https://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression)
+- AWS
+  - [EC2 setup](https://youtu.be/rE8mJ1OYjmM) (YouTube)
 
 ### Pre-Requisite
 
@@ -276,3 +278,112 @@
 - Cleaning
 
   If you want a fresh start for everything, run `docker system prune -a` and `docker volume prune`. The first command removes any unused containers and the second removes any unused volumes. I recommend doing this fairly often since Docker likes to stash everything away causing the gigabytes to add up.
+
+### Production
+
+1. Launch an server on cloud (use digital ocean or aws). I am using AWS.
+  
+   - Add ubuntu in AWS EC2 instance.
+  
+   - Select free tier and click `Review and Launch`
+
+   - Add Tags if you want `Key=Name` and `Value=App`
+  
+   - Create key file and store it in a secure location for ssh access
+  
+   - Launch Instance
+  
+   - Wait for instance status to be running and copy the `Public IP address`.
+  
+   - Go to the location of the downloaded key file and open the terminal.
+  
+   - type in the command to get access to the cloud instance of the ubuntu server. (`ubuntu` user is created by default)
+  
+      ```sh
+      ssh -i <key-file-name>.<extension> ubuntu@<public_ip>
+      ```
+
+      **NOTE**: based on the file extension (.pem or .cer) we may need to giv it special permissions using `chmod 600 <key-file-name>.<extension>`. run the above command again to get access to the ubuntu instance
+
+   - Update Ubuntu (Optional)
+
+      ```sh
+      # check updates available
+      sudo apt list --upgradable
+
+      # Update the repository index and install the updates for Kernel and installed applications
+      sudo apt update && sudo apt upgrade -y
+
+      # run this once the update is finished
+      sudo reboot
+      ```
+
+      **NOTE**: After rebooting wait for sometime and connect into the ubuntu instance using ssh
+
+1. [Add Deploy Keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys) to get repository access inside the server (work even for private repository)
+
+   - Generate SSH key inside server
+
+      ```sh
+      cd .ssh/
+
+      ssh-keygen -t ed25519 -C "your_email@example.com"
+      ```
+
+   - Copy public key from `id_*.pub` and paste it into deploy keys section of the github repo.
+
+1. Install Docker in the Ubuntu Instance
+
+    - get [docker](https://get.docker.com/) engine community from the scripts
+
+      ```sh
+      curl -fsSL https://get.docker.com -o get-docker.sh
+
+      sh get-docker.sh
+      ```
+
+    - get [docker-compose](https://docs.docker.com/compose/install/) from official documentation for linux
+
+      ```sh
+      # check the docs for version before using this command
+      sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+      sudo chmod +x /usr/local/bin/docker-compose
+      ```
+
+1. Create `.env` file inside server
+
+   - Open a .env file using vim  
+
+      ```sh
+      vim .env
+      ```
+
+   - Add environmental variables
+
+      ```vim
+      NODE_ENV=production
+      MYSQL_ROOT_PASSWORD=
+      MYSQL_DATABASE=
+      MYSQL_USER=
+      MYSQL_PASSWORD=
+      SESSION_SECRET=
+      ```
+
+      **NOTE**: `NODE_ENV=production` is not needed since it is set with dockerfile, but adding it even though
+
+   - Modify `.profile` to load `.env`
+
+      ```sh
+      vim .profile
+      ```
+
+      ```vim
+      # Add this at the bottom
+      
+      set -o allexport; source $HOME/.env; set +o allexport 
+      ```
+
+      **NOTE**: use `$HOME` (or) `$(pwd)` (or) `$PWD` (or) absolute path
+
+   - Exit and relogin again for the changes to take effect

@@ -9,15 +9,15 @@ services:
     build:
       target: prod
     environment:
-      - DB_USER=mugil
-      - DB_PASSWORD=password
-      - DB_NAME=dev_db
-      - SESSION_SECRET=secret
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
+      - SESSION_SECRET=${SESSION_SECRET}
     command: ./wait-for.sh mysql:3306 -- npm run start:prod
 
   mysql:
     environment:
-      - MYSQL_ROOT_PASSWORD=mypassword
-      - MYSQL_DATABASE=dev_db
-      - MYSQL_USER=mugil
-      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
