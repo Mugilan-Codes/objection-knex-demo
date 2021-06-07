@@ -284,8 +284,12 @@
 1. Launch an server on cloud (use digital ocean or aws). I am using AWS.
   
    - Add ubuntu in AWS EC2 instance.
+
+   - Select Free Tier
+
+   - Add security group for HTTP(80) and HTTPS(443) and SSH(22)
   
-   - Select free tier and click `Review and Launch`
+   - click `Review and Launch`
 
    - Add Tags if you want `Key=Name` and `Value=App`
   
@@ -386,6 +390,12 @@
 
       **NOTE**: use `$HOME` (or) `$(pwd)` (or) `$PWD` (or) absolute path
 
+   - check existing environmental variables
+
+      ```sh
+      printenv
+      ```
+
    - Exit and relogin again for the changes to take effect
 
 1. Create a folder for the code and clone it (ssh)
@@ -399,3 +409,43 @@
     ```
 
 1. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+
+1. Run docker production command
+
+    ```sh
+    docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+    ```
+
+    - Run migrations inside the node-app container
+
+      ```sh
+      docker exec -it app_node-app_1 ash
+
+      npm run migrate:prod
+      ```
+
+    - Check in mysql container if the migrations where successfull
+
+      ```sh
+      docker exec -it app_mysql_1 mysql -u <MYSQL_USER> --password=<MYSQL_PASSWORD>
+      ```
+
+      ```sql
+      select database();
+
+      show databases;
+
+      use <MYSQL_DATABASE>;
+
+      select database();
+
+      show tables;
+
+      desc <table_name>;
+      ```
+
+1. Make calls to the API from anywhere in the world
+
+  ```http
+  http://<PUBLIC_IPV4_ADDRESS/PUBLIC_IPV4_DNS>/api/v1
+  ```
