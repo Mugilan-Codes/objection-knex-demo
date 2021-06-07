@@ -3,6 +3,7 @@ ARG NODE_VERSION=15-alpine
 
 FROM node:${NODE_VERSION} as node
 
+# REVIEW: should wait-for.sh be in base or dev?
 FROM node as base
 WORKDIR /app
 COPY [ "package.json", "package-lock.json", "babel.config.json", "wait-for.sh", "./" ]
@@ -18,8 +19,8 @@ RUN npm run build
 FROM base as prod
 ENV NODE_ENV=production
 RUN npm ci --only=production
-COPY nginx ./nginx
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/nginx ./nginx
 CMD [ "npm", "run", "start:prod" ]
 
 FROM base as dev
