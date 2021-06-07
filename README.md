@@ -44,8 +44,8 @@
 - [Better logs for ExpressJS using Winston and Morgan with Typescript](https://dev.to/vassalloandrea/better-logs-for-expressjs-using-winston-and-morgan-with-typescript-516n)
 - [Express middleware: A complete guide](https://blog.logrocket.com/express-middleware-a-complete-guide/)
 - [Express Use gzip compression](https://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression)
-- AWS
-  - [EC2 setup](https://youtu.be/rE8mJ1OYjmM) (YouTube)
+- [AWS EC2 setup](https://youtu.be/rE8mJ1OYjmM) (YouTube)
+- [How to fix docker: Got permission denied while trying to connect to the Docker daemon socket](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket)
 
 ### Pre-Requisite
 
@@ -387,3 +387,15 @@
       **NOTE**: use `$HOME` (or) `$(pwd)` (or) `$PWD` (or) absolute path
 
    - Exit and relogin again for the changes to take effect
+
+1. Create a folder for the code and clone it (ssh)
+
+    ```sh
+    mkdir app
+
+    cd app
+
+    git clone git@github.com:Mugilan-Codes/objection-knex-demo.git .
+    ```
+
+1. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
