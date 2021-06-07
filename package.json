@@ -15,6 +15,10 @@
     "build:babel": "babel ./src --out-dir dist --copy-files --source-maps",
     "build": "npm run clean && npm run build:babel",
     "start": "npm run build && node ./dist",
+    "down:prod": "knex --knexfile ./dist/db/knexfile.js --esm migrate:down",
+    "rollback:prod": "knex --knexfile ./dist/db/knexfile.js --esm migrate:rollback",
+    "migrate:prod": "knex --knexfile ./dist/db/knexfile.js --esm migrate:latest",
+    "seed:prod": "knex --knexfile ./dist/db/knexfile.js --esm seed:run",
     "start:prod": "node ./dist"
   },
   "keywords": [],
