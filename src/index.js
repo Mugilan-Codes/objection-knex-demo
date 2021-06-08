@@ -29,7 +29,7 @@ app.use(compression());
 app.use(session);
 
 app.get('/api/v1', (req, res) => {
-  res.send('<h1>Hello from Objection-Knex Tutorial!!!</h1>');
+  res.send('<h1>Hello from Objection-Knex Tutorial</h1>');
   logger.info('I am working');
 });
 
