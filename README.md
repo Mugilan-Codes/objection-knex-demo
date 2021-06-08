@@ -492,3 +492,54 @@
         ```
 
      - Update docker-compose.yml file to use this `image`
+ using `git push`
+
+      **NOTE**: Do these in the local development machine
+
+- Pull in the changes using `git pull` and run the containers again in `production server` to tag the images
+
+  ```sh
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+  ```
+
+- How to make changes reflect in production server?
+
+  1. In Develoment Machine
+
+     - Build the custom images in local development machine
+
+        ```sh
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+        # only specific service
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml build node-app
+        ```
+
+     - Push the built images to cloud image repo
+
+       ```sh
+       docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
+
+       # only specific service
+       docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+       ```
+
+  1. In Production Server
+
+     - Pull the changes from cloud repo into the production server
+
+        ```sh
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+        # only specific image
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull node-app
+        ```
+
+     - Update the changes
+
+        ```sh
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+        # specific rebuild
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
+        ```
