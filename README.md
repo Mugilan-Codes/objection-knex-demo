@@ -543,3 +543,5 @@
         # specific rebuild
         docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
         ```
+
+      **NOTE**: use [watchtower](https://containrrr.dev/watchtower/) to automate these steps in production server
