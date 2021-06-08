@@ -446,6 +446,49 @@
 
 1. Make calls to the API from anywhere in the world
 
-  ```http
-  http://<PUBLIC_IPV4_ADDRESS/PUBLIC_IPV4_DNS>/api/v1
-  ```
+     ```http
+     http://<PUBLIC_IPV4_ADDRESS/PUBLIC_IPV4_DNS>/api/v1
+     ```
+
+1. Workflow
+
+   - Make changes to src and push it to github
+
+   - `cd app` in production server and git pull the new changes
+
+   - Build the new image in production server
+
+      ```sh
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+      # we know that there will be changes only in the node app so we can do this instead 
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build node-app
+
+      # do the above thing but without rebuilding the dependencies (depends_on)
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --no-deps node-app
+
+      # force rebuild containers even when there is no change without dependecies
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --force-recreate --no-deps node-app
+      ```
+
+   - Use a cloud repo to store the built images (**_DockerHub_** or amazon's ECR or something else..). Create a repository there.
+
+     - Tag the image with respect to the name on the remote image repo that was created. (`<username>/<repo_name>`)
+
+        ```sh
+        docker image tag <local_image_name>:<version> <username>/<repo_name>
+        
+        docker image tag objection-knex_node-app mugilancodes/objection-knex-node-app
+        ```
+
+        **NOTE**: if `version` is not provided it defaults to `latest`
+
+     - Push the tagged image to remote repo
+
+        ```sh
+        docker push <username>/<repo_name>
+
+        docker push mugilancodes/objection-knex-node-app
+        ```
+
+     - Update docker-compose.yml file to use this `image`
