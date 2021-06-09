@@ -604,25 +604,25 @@
       - check how many stacks are there
 
          ```sh
-         docker node ls
+         docker stack ls
          ```
 
       - list the services in the stack
 
          ```sh
-         docker node ls
+         docker stack services myapp
          ```
 
       - list all the services across all stacks
 
          ```sh
-         docker node ls
+         docker service ls
          ```
 
       - list the tasks in the stack
   
          ```sh
-         docker node ls
+         docker stack ps myapp
          ```
 
     **NOTE**: AWS crashes in this step.
