@@ -408,7 +408,7 @@
     git clone git@github.com:Mugilan-Codes/objection-knex-demo.git .
     ```
 
-1. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+1. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) or [Run the Docker daemon as a non-root user (Rootless mode)](https://docs.docker.com/engine/security/rootless/) [**RECOMMENDED**]
 
 1. Run docker production command
 
@@ -496,52 +496,133 @@
 
       **NOTE**: Do these in the local development machine
 
-- Pull in the changes using `git pull` and run the containers again in `production server` to tag the images
+   - Pull in the changes using `git pull` and run the containers again in `production server` to tag the images
 
-  ```sh
-  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-  ```
+      ```sh
+      docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+      ```
 
-- How to make changes reflect in production server?
+   - How to make changes reflect in production server?
 
-  1. In Develoment Machine
+     1. In Develoment Machine
 
-     - Build the custom images in local development machine
+        - Build the custom images in local development machine
+
+          ```sh
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+          # only specific service
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml build node-app
+          ```
+
+        - Push the built images to cloud image repo
 
         ```sh
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
 
         # only specific service
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml build node-app
+        docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
         ```
 
-     - Push the built images to cloud image repo
+     1. In Production Server
+
+        - Pull the changes from cloud repo into the production server
+
+          ```sh
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+          # only specific image
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull node-app
+          ```
+
+        - Update the changes
+
+          ```sh
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+          # specific rebuild
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
+          ```
+
+        **NOTE**: use [watchtower](https://containrrr.dev/watchtower/) to automate these steps in production server
+
+1. Orchestrator (kubernetes or [**_docker swarm_**](https://docs.docker.com/engine/swarm/))
+
+   - Check if docker swarm is active in production server (`Swarm: active`)
+
+     ```sh
+     docker info
+     ```
+
+   - Activate Swarm
+
+     - Get public ip (`eth0 --> inet`)
 
        ```sh
-       docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
-
-       # only specific service
-       docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+       ip add
        ```
 
-  1. In Production Server
+     - Initialize swarm using the public ip
 
-     - Pull the changes from cloud repo into the production server
+       ```sh
+       docker swarm init --advertise-addr <public_ip>
+       ```
 
-        ```sh
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+   - Add Nodes to Swarm
 
-        # only specific image
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull node-app
-        ```
+     - Manager
 
-     - Update the changes
+       ```sh
+       docker swarm join-token manager
+       ```
 
-        ```sh
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+     - Worker
 
-        # specific rebuild
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
-        ```
+       ```sh
+       docker swarm join --token <token_provided> <ip>:<port>
+       
+       # retrieve the join command for the worker
+       docker swarm join-token worker
+       ```
 
-      **NOTE**: use [watchtower](https://containrrr.dev/watchtower/) to automate these steps in production server
+   - Update compose file for [swarm deployment](https://docs.docker.com/compose/compose-file/compose-file-v3/#deploy) and push it to github
+
+   - Pull in the changes made to production docker compose into production server. Tear down the running containers to prepare for docker stack deploy
+
+   - Deploy (you can choose any name for the Stack instead of `myapp`)
+
+      ```sh
+      docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml myapp
+      ```
+
+      - check how many nodes are running
+
+         ```sh
+         docker node ls
+         ```
+
+      - check how many stacks are there
+
+         ```sh
+         docker node ls
+         ```
+
+      - list the services in the stack
+
+         ```sh
+         docker node ls
+         ```
+
+      - list all the services across all stacks
+
+         ```sh
+         docker node ls
+         ```
+
+      - list the tasks in the stack
+  
+         ```sh
+         docker node ls
+         ```
+
+    **NOTE**: AWS crashes in this step.
