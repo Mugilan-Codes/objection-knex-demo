@@ -5,8 +5,6 @@
 ### TODO
 
 - Remove babel and use `.mjs` file extension instead of `.js`
-- Complete Setting up knex and Objection ORM without any errors
-- Wait for MySQL container to start up and be running before executing node container
 - Add classes support ([@babel/plugin-transform-classes](https://babeljs.io/docs/en/babel-plugin-transform-classes))
 - Add Versioning Support for API's
 - add Port 80(http) and Port 443(https) support using nginx
@@ -17,8 +15,8 @@
 - [Objection.js](https://vincit.github.io/objection.js/) ORM
 - [Knex.js](http://knexjs.org/) Query Builder
 - [Node MySQL 2](https://www.npmjs.com/package/mysql2)
-- [How to Create MySQL Users Accounts and Grant Privileges](https://linuxize.com/post/how-to-create-mysql-user-accounts-and-grant-privileges/)
-- [How to Create MySQL User and Grant Privileges: A Beginner’s Guide](https://www.hostinger.in/tutorials/mysql/how-create-mysql-user-and-grant-permissions-command-line)
+- [How to Create MySQL Users Accounts and Grant Privileges](https://linuxize.com/post/how-to-create-mysql-user-accounts-and-grant-privileges/) - (without docker)
+- [How to Create MySQL User and Grant Privileges: A Beginner’s Guide](https://www.hostinger.in/tutorials/mysql/how-create-mysql-user-and-grant-permissions-command-line) - (without docker)
 - Babel Setup
   - [Configure Babel for a Nodejs Application](https://dev.to/adebayoileri/configure-babel-for-nodejs-application-3798)
   - [A Minimal Node.js, Express, & Babel Setup](https://dev.to/neightjones/a-minimal-node-js-express-babel-setup-27j6)
