@@ -46,6 +46,7 @@
 - [Express Use gzip compression](https://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression)
 - [AWS EC2 setup](https://youtu.be/rE8mJ1OYjmM) (YouTube)
 - [How to fix docker: Got permission denied while trying to connect to the Docker daemon socket](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket)
+- [Amazon Linux 2 - install docker & docker-compose](https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9)
 
 ### Pre-Requisite
 
