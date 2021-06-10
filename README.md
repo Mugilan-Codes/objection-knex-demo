@@ -283,7 +283,7 @@
 
 1. Launch an server on cloud (use digital ocean or aws). I am using AWS.
   
-   - Add ubuntu in AWS EC2 instance.
+   - Add ubuntu in AWS EC2 instance (i chose `t2.small`).
 
    - Select Free Tier
 
@@ -301,10 +301,13 @@
   
    - Go to the location of the downloaded key file and open the terminal.
   
-   - type in the command to get access to the cloud instance of the ubuntu server. (`ubuntu` user is created by default)
+   - type in the command to get access to the cloud instance of the ubuntu server. (`ubuntu`/`ec2-user` user is created by default)
   
       ```sh
       ssh -i <key-file-name>.<extension> ubuntu@<public_ip>
+
+      # if using AMI instance
+      ssh -i <key-file-name>.<extension> ec2-user@<public_ip>
       ```
 
       **NOTE**: based on the file extension (.pem or .cer) we may need to giv it special permissions using `chmod 600 <key-file-name>.<extension>`. run the above command again to get access to the ubuntu instance
@@ -346,6 +349,21 @@
       sh get-docker.sh
       ```
 
+    - Install docker, git (when using `AMI instance`)
+
+      ```sh
+      sudo yum install -y docker git
+
+      sudo service docker start
+      sudo usermod -a -G docker ec2-user
+
+      # Make docker auto-start
+      sudo chkconfig docker on
+
+      # Reboot to verify it all loads fine on its own.
+      sudo reboot
+      ```
+
     - get [docker-compose](https://docs.docker.com/compose/install/) from official documentation for linux
 
       ```sh
@@ -357,6 +375,8 @@
 
       sudo chmod +x /usr/local/bin/docker-compose
       ```
+
+    - [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) or [Run the Docker daemon as a non-root user (Rootless mode)](https://docs.docker.com/engine/security/rootless/)
 
 1. Create `.env` file inside server
 
@@ -410,8 +430,6 @@
 
     git clone git@github.com:Mugilan-Codes/objection-knex-demo.git .
     ```
-
-1. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) or [Run the Docker daemon as a non-root user (Rootless mode)](https://docs.docker.com/engine/security/rootless/) [**RECOMMENDED**]
 
 1. Run docker production command
 
@@ -520,12 +538,12 @@
 
         - Push the built images to cloud image repo
 
-        ```sh
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
+          ```sh
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
 
-        # only specific service
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
-        ```
+          # only specific service
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+          ```
 
      1. In Production Server
 
@@ -627,5 +645,3 @@
          ```sh
          docker stack ps myapp
          ```
-
-    **NOTE**: AWS crashes in this step. (works in digital ocean droplet)
